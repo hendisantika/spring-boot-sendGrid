@@ -29,4 +29,9 @@ public class MailController {
     public String send() throws IOException {
         return mailService.sendTextEmail();
     }
+
+    @PostMapping("/send")
+    public String sendWithTemplate() throws IOException {
+        return mailService.send();
+    }
 }
