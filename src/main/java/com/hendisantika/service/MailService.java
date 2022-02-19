@@ -1,14 +1,7 @@
 package com.hendisantika.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
-import com.sendgrid.helpers.mail.objects.Personalization;
+import com.sendgrid.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -81,7 +74,7 @@ public class MailService {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sg.api(request);
-            logger.info(response.getBody());
+            log.info(response.getBody());
             return response.getBody();
         } catch (IOException ex) {
             throw ex;
@@ -105,7 +98,7 @@ public class MailService {
 
         public void addDynamicTemplateData(String key, String value) {
             if (dynamic_template_data == null) {
-                dynamic_template_data = new HashMap<String, String>();
+                dynamic_template_data = new HashMap<>();
                 dynamic_template_data.put(key, value);
             } else {
                 dynamic_template_data.put(key, value);
