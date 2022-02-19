@@ -50,4 +50,38 @@ public class MailService {
         }
     }
 
+    public String send() throws IOException {
+        /*
+         * The sender email should be the same as we used to Create a Single Sender
+         * Verification
+         */
+        Email from = new Email("sender email");
+        Email to = new Email("reciver email");
+        Mail mail = new Mail();
+        DynamicTemplatePersonalization personalization = new DynamicTemplatePersonalization();
+        personalization.addTo(to);
+        mail.setFrom(from);
+        mail.setSubject("The subject");
+        // this is the dynamic value of first_name variable on our template
+        //feel free to create a variable firstName  passed with the send method
+        personalization.addDynamicTemplateData("first_name", "hamdi");
+        mail.addPersonalization(personalization);
+        mail.setTemplateId("TEMPLATE_ID");
+        // feel free to save this varible on the env
+        SendGrid sg = new SendGrid("SENDGRID_API_KEY");
+        Request request = new Request();
+
+        try {
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+            Response response = sg.api(request);
+            logger.info(response.getBody());
+            return response.getBody();
+        } catch (IOException ex) {
+            throw ex;
+        }
+    }
+
+
 }
