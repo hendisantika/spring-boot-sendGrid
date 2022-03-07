@@ -2,7 +2,7 @@ package com.hendisantika.controller;
 
 import com.hendisantika.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,12 +25,12 @@ public class MailController {
     @Autowired
     MailService mailService;
 
-    @PostMapping("/send-text")
+    @GetMapping("/send-text")
     public String send() throws IOException {
         return mailService.sendTextEmail();
     }
 
-    @PostMapping("/send")
+    @GetMapping("/send")
     public String sendWithTemplate() throws IOException {
         return mailService.send();
     }

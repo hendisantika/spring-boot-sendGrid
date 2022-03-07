@@ -29,7 +29,7 @@ public class MailService {
          * Verification
          */
         Email from = new Email("hendisantika@yahoo.co.id");
-        String subject = "The subject";
+        String subject = "Test The subject";
         Email to = new Email("hendi@yopmail.com");
         Content content = new Content("text/plain", "This is a test email");
         Mail mail = new Mail(from, subject, to, content);
@@ -53,8 +53,9 @@ public class MailService {
          * The sender email should be the same as we used to Create a Single Sender
          * Verification
          */
-        Email from = new Email("sender email");
-        Email to = new Email("reciver email");
+        Email from = new Email("hendisantika@yahoo.co.id");
+        String subject = "Test The subject";
+        Email to = new Email("hendi@yopmail.com");
         Mail mail = new Mail();
         DynamicTemplatePersonalization personalization = new DynamicTemplatePersonalization();
         personalization.addTo(to);
@@ -62,9 +63,9 @@ public class MailService {
         mail.setSubject("The subject");
         // this is the dynamic value of first_name variable on our template
         //feel free to create a variable firstName  passed with the send method
-        personalization.addDynamicTemplateData("first_name", "hamdi");
+        personalization.addDynamicTemplateData("full_name", "Uchiha Sasuke");
         mail.addPersonalization(personalization);
-        mail.setTemplateId("TEMPLATE_ID");
+        mail.setTemplateId("SENDGRID_TEMPLATE_ID");
         // feel free to save this varible on the env
         SendGrid sg = new SendGrid("SENDGRID_API_KEY");
         Request request = new Request();
