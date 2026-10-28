@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Maven dependencies, plugins and the Maven wrapper
   - package-ecosystem: maven
     directory: "/"
     schedule:
@@ -7,3 +8,45 @@ updates:
       time: '21:00'
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
+    target-branch: main
+    labels:
+      - dependencies
+      - java
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+      include: scope
+    groups:
+      # Keep the Spring Boot parent and Spring-managed artifacts together
+      spring:
+        patterns:
+          - "org.springframework*"
+          - "io.spring*"
+      maven-plugins:
+        patterns:
+          - "org.apache.maven*"
+          - "org.codehaus.mojo*"
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # GitHub Actions used in .github/workflows
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: '21:00'
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    target-branch: main
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: "ci(deps)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
